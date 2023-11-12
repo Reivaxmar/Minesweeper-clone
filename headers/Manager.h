@@ -6,12 +6,18 @@
 
 class Manager {
     public:
-        Manager();
-        void update();
+        Manager(Vector2u windowSize);
+        void update(RenderWindow& window);
         void draw(RenderWindow& window);
     private:
+        int flagsRemaining;
+        bool firstClick;
+        void updateClicks(RenderWindow& window);
+        bool lastRight;
         Board board;
         BoardDrawer drawer;
+        Vector2f boardPos;
+        Font font;
 };
 
 #endif

@@ -14,6 +14,16 @@ void BoardDrawer::DrawBoard(RenderWindow &window, Board& board, Vector2f pos)
             Vector2f tilePos = pos;
             tilePos += Vector2f(x * TILE_SIZE, y * TILE_SIZE);
             int adjMines = board.generatedmap[x][y].second;
+            if(!board.generatedmap[x][y].first) {
+                if((board.generatedmap[x][y].second & uint(32)) == 0) {
+                    getTexMines(0);
+                } else {
+                    getTexMines(2);
+                }
+                spr.setPosition(tilePos);
+                window.draw(spr);
+                continue;
+            }
             if(adjMines == 0)
                 getTexMines(1);
             else if(adjMines == 9)

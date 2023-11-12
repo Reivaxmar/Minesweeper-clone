@@ -24,6 +24,7 @@ class Board {
         int checkMinesAround(Vector2u pos);
     public:
         Board(Vector2u s, int mines);
+        int updateAt(Vector2i pos);
         void regenerate_map(Vector2u s, int mines, Vector2i clickPos);
         void regenerate_visible();
         vector<vector<pair<bool, int>>> generatedmap;

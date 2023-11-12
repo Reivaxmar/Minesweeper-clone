@@ -13,6 +13,26 @@ Board::Board(Vector2u s, int mines)
     regenerate_map(s, mines, Vector2i(0, 0)); // TODO: put the click thing working with the click in the game
 }
 
+int Board::updateAt(Vector2i pos) {
+    // Check if pos is valid
+    if((pos.x < 0 || pos.y < 0) || (pos.x >= size.x || pos.y >= size.y)) return -1;
+    pbi tile = generatedmap[pos.x][pos.y];
+    if(tile.first == true) return 0;
+    if(tile.second == 9) return 1;
+    if(tile.second == 0) {
+        generatedmap[pos.x][pos.y].first = true;
+        for(int x = -1; x < 2; x++) {
+            for(int y = -1; y < 2; y++) {
+                updateAt(pos + Vector2i(x, y));
+            }
+        }
+        return 0;
+    } else {
+        generatedmap[pos.x][pos.y].first = true;
+        return 0;
+    }
+}
+
 void Board::regenerate_map(Vector2u s, int mines, Vector2i clickPos)
 {
     randomMinex.param(uniform_int_distribution<mt19937::result_type>::param_type(0, s.x - 1));

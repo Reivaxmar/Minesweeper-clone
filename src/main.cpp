@@ -7,7 +7,7 @@ int main()
 {
     RenderWindow window(VideoMode(512, 712), "CMake SFML Project");
     window.setFramerateLimit(144);
-    Manager manager;
+    Manager manager(window.getSize());
 
     while (window.isOpen())
     {
@@ -19,7 +19,7 @@ int main()
             }
         }
 
-        manager.update();
+        manager.update(window);
         window.clear();
         manager.draw(window);
         window.display();
