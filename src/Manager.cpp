@@ -38,11 +38,17 @@ void Manager::updateClicks(RenderWindow& window) {
                 cout << "You lost!" << endl;
                 window.close();
             }
+            if(board.checkWin()) {
+                cout << "You won!" << endl;
+                window.close();
+            }
         } else if(Mouse::isButtonPressed(Mouse::Right) && !lastRight) {
-            board.generatedmap[mpb.x][mpb.y].second ^= uint(32);
-            flagsRemaining += ((board.generatedmap[mpb.x][mpb.y].second & uint(32)) == 0) * 2 - 1;
-            cout << flagsRemaining << endl;
-            lastRight = true;
+            if(!board.generatedmap[mpb.x][mpb.y].first) {
+                board.generatedmap[mpb.x][mpb.y].second ^= uint(32);
+                flagsRemaining += ((board.generatedmap[mpb.x][mpb.y].second & uint(32)) == 0) * 2 - 1;
+                cout << flagsRemaining << endl;
+                lastRight = true;
+            }
         }
         if(!Mouse::isButtonPressed(Mouse::Right)) {
             lastRight = false;

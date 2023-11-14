@@ -33,6 +33,18 @@ int Board::updateAt(Vector2i pos) {
     }
 }
 
+bool Board::checkWin() {
+    for(int x = 0; x < size.x; x++) {
+        for(int y = 0; y < size.y; y++) {
+            int mineNum = generatedmap[x][y].second & 0b1111;
+            if(mineNum >= 0 && mineNum <= 8 && !generatedmap[x][y].first) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void Board::regenerate_map(Vector2u s, int mines, Vector2i clickPos)
 {
     randomMinex.param(uniform_int_distribution<mt19937::result_type>::param_type(0, s.x - 1));
