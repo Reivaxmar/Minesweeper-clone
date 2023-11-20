@@ -15,7 +15,7 @@ void BoardDrawer::DrawBoard(RenderWindow &window, Board& board, Vector2f pos)
             tilePos += Vector2f(x * TILE_SIZE, y * TILE_SIZE);
             int adjMines = board.generatedmap[x][y].second;
             if(!board.generatedmap[x][y].first) {
-                if((board.generatedmap[x][y].second & uint(32)) == 0) {
+                if((board.generatedmap[x][y].second & MINEAND) == 0) {
                     getTexMines(0);
                 } else {
                     getTexMines(2);

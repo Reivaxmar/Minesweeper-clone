@@ -28,7 +28,7 @@ void Manager::updateClicks(RenderWindow& window) {
     mpb /= 64;
     if(mpb.x >= 0 && mpb.y >= 0 && 
         mousePos.x >= 0 && mousePos.y >= 0 && mousePos.x < window.getSize().x && mousePos.y < window.getSize().y) {
-        if(Mouse::isButtonPressed(Mouse::Left) && (board.generatedmap[mpb.x][mpb.y].second & uint(32)) == 0) {
+        if(Mouse::isButtonPressed(Mouse::Left) && (board.generatedmap[mpb.x][mpb.y].second & MINEAND) == 0) {
             if(firstClick) {
                 board.regenerate_map(Vector2u(8, 8), 10, mpb);
                 firstClick = false;
@@ -44,8 +44,8 @@ void Manager::updateClicks(RenderWindow& window) {
             }
         } else if(Mouse::isButtonPressed(Mouse::Right) && !lastRight) {
             if(!board.generatedmap[mpb.x][mpb.y].first) {
-                board.generatedmap[mpb.x][mpb.y].second ^= uint(32);
-                flagsRemaining += ((board.generatedmap[mpb.x][mpb.y].second & uint(32)) == 0) * 2 - 1;
+                board.generatedmap[mpb.x][mpb.y].second ^= MINEAND;
+                flagsRemaining += ((board.generatedmap[mpb.x][mpb.y].second & MINEAND) == 0) * 2 - 1;
                 cout << flagsRemaining << endl;
                 lastRight = true;
             }
