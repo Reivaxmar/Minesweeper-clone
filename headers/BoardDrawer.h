@@ -15,8 +15,10 @@ class BoardDrawer {
         void getTexNum(int n);
         Texture tex;
         Sprite spr;
+        void drawNotFinished(Vector2f pos, pbi info);
+        void drawFinished(Vector2f pos, pbi info);
     public:
-        void DrawBoard(RenderWindow& window, Board& board, Vector2f pos);
+        void DrawBoard(RenderWindow& window, Board& board, Vector2f pos, bool finished);
         BoardDrawer();
 };
 

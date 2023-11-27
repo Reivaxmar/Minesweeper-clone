@@ -26,6 +26,7 @@ class Board {
         Board(Vector2u s, int mines);
         bool checkWin();
         int updateAt(Vector2i pos);
+        void autoComplete();
         void regenerate_map(Vector2u s, int mines, Vector2i clickPos);
         void regenerate_visible();
         vector<vector<pair<bool, int>>> generatedmap;

@@ -7,31 +7,60 @@ BoardDrawer::BoardDrawer() {
     getTexMines(0);
 }
 
-void BoardDrawer::DrawBoard(RenderWindow &window, Board& board, Vector2f pos)
+void BoardDrawer::DrawBoard(RenderWindow &window, Board& board, Vector2f pos, bool finished)
 {
     for(int x = 0; x < board.getSize().x; x++) {
         for(int y = 0; y < board.getSize().y; y++) {
+
             Vector2f tilePos = pos;
             tilePos += Vector2f(x * TILE_SIZE, y * TILE_SIZE);
-            int adjMines = board.generatedmap[x][y].second;
-            if(!board.generatedmap[x][y].first) {
-                if((board.generatedmap[x][y].second & uint(32)) == 0) {
-                    getTexMines(0);
-                } else {
-                    getTexMines(2);
-                }
-                spr.setPosition(tilePos);
-                window.draw(spr);
-                continue;
-            }
-            if(adjMines == 0)
-                getTexMines(1);
-            else if(adjMines == 9)
-                getTexMines(5);
-            else
-                getTexMineNum(adjMines - 1);
             spr.setPosition(tilePos);
+            if(finished)
+                drawFinished(tilePos, board.generatedmap[x][y]);
+            else
+                drawNotFinished(tilePos, board.generatedmap[x][y]);
             window.draw(spr);
+            
+        }
+    }
+}
+
+void BoardDrawer::drawNotFinished(Vector2f pos, pbi info) {
+    if(!info.first) { // If it isn't visible
+        if((info.second & uint(32)) == 0) { // If it isn't a flag
+            getTexMines(0); // Draw unpressed
+        } else {
+            getTexMines(2); // Draw flag
+        }
+        return;
+    }
+    int adjMines = info.second;
+    if(adjMines == 0)
+        getTexMines(1); // Draw no adjacent
+    else if(adjMines == 9)
+        getTexMines(5); // Draw mine
+    else
+        getTexMineNum(adjMines - 1); // Draw num adjacent
+}
+
+void BoardDrawer::drawFinished(Vector2f pos, pbi info) {
+    int visible = info.first;
+    int adjMines = info.second;
+    if(visible) {
+        if(adjMines == 0)
+            getTexMines(1); // Draw no adjacent
+        else if(adjMines == 9)
+            getTexMines(6); // Draw exploded mine
+        else
+            getTexMineNum(adjMines - 1); // Draw num adjacent
+    } else {
+        if((adjMines & uint(32)) == 0) {
+            if(adjMines == 9)
+                getTexMines(5); // Draw unexploded mine
+            else
+                getTexMines(0); // Draw unpressed
+        } else {
+            getTexMines(2); // Draw flag
         }
     }
 }
