@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#define MINEAND (unsigned int)32
+
 class BoardDrawer {
     private:
         const int TILE_SIZE = 16 * 4;
