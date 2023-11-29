@@ -11,6 +11,8 @@ using namespace sf;
 typedef pair<bool, int> pbi;
 #define mp make_pair
 
+#define FLAG_AND (unsigned int)32
+
 class Board {
     private:
         Vector2u size;

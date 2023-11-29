@@ -19,7 +19,7 @@ void Board::autoComplete() {
             bool visible = col.first;
             int adjMines = col.second;
             if(!visible && adjMines == 9) {
-                col.second ^= uint(32);
+                col.second ^= FLAG_AND;
             }
         }
     }

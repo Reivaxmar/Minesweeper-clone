@@ -27,7 +27,7 @@ void BoardDrawer::DrawBoard(RenderWindow &window, Board& board, Vector2f pos, bo
 
 void BoardDrawer::drawNotFinished(Vector2f pos, pbi info) {
     if(!info.first) { // If it isn't visible
-        if((info.second & uint(32)) == 0) { // If it isn't a flag
+        if((info.second & FLAG_AND) == 0) { // If it isn't a flag
             getTexMines(0); // Draw unpressed
         } else {
             getTexMines(2); // Draw flag
@@ -54,7 +54,7 @@ void BoardDrawer::drawFinished(Vector2f pos, pbi info) {
         else
             getTexMineNum(adjMines - 1); // Draw num adjacent
     } else {
-        if((adjMines & uint(32)) == 0) {
+        if((adjMines & FLAG_AND) == 0) {
             if(adjMines == 9)
                 getTexMines(5); // Draw unexploded mine
             else

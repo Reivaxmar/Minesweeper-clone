@@ -60,9 +60,9 @@ void Manager::updateClicks(RenderWindow& window) {
         } else if(Mouse::isButtonPressed(Mouse::Right) && !lastRight) {
             if(!board.generatedmap[mpb.x][mpb.y].first) {
                 // Add or remove a flag if the tile isn't visible
-                board.generatedmap[mpb.x][mpb.y].second ^= uint(32);
+                board.generatedmap[mpb.x][mpb.y].second ^= FLAG_AND;
                 // Change the flags remaining by +-1
-                flagsRemaining += ((board.generatedmap[mpb.x][mpb.y].second & uint(32)) == 0) * 2 - 1;
+                flagsRemaining += ((board.generatedmap[mpb.x][mpb.y].second & FLAG_AND) == 0) * 2 - 1;
                 lastRight = true;
             }
         }
