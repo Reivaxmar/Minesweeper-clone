@@ -4,6 +4,8 @@ Manager::Manager(Vector2u windowSize)
     : board(mapSize, mapMines)
     , drawer()
     , boardPos(0, windowSize.y - 512)
+    , clock()
+    , winTime(-1)
 {
     firstClick = true;
     finished = false;
@@ -29,10 +31,13 @@ void Manager::update(RenderWindow& window) {
         font.loadFromFile("../assets/Ubuntu.ttf");
         flagsRemaining = 10;
         board.regenerate_map(mapSize, mapMines, Vector2i(0, 0));
+        winTime = -1;
     }
 }
 
 void Manager::updateClicks(RenderWindow& window) {
+    if(!firstClick)
+        winTime = clock.getElapsedTime().asSeconds();
     Vector2i mousePos = Mouse::getPosition(window);
     Vector2i mpb = Vector2i(mousePos.x - boardPos.x, mousePos.y - boardPos.y);
     // Prints the tile the mouse is hovering
@@ -43,19 +48,20 @@ void Manager::updateClicks(RenderWindow& window) {
             if(firstClick) {
                 board.regenerate_map(Vector2u(8, 8), 10, mpb);
                 firstClick = false;
+                clock.restart();
             }
             int res = board.updateAt(mpb);
             if(res == 1) {
                 cout << "You lost!" << endl;
                 finished = true;
-                //window.close();
+                winTime = clock.getElapsedTime().asSeconds();
             }
             if(board.checkWin()) {
                 cout << "You won!" << endl;
                 board.autoComplete();
                 finished = true;
                 win = true;
-                //window.close();
+                winTime = clock.getElapsedTime().asSeconds();
             }
         } else if(Mouse::isButtonPressed(Mouse::Right) && !lastRight) {
             if(!board.generatedmap[mpb.x][mpb.y].first) {
@@ -76,7 +82,10 @@ void Manager::draw(RenderWindow& window) {
     drawer.DrawBoard(window, board, boardPos, finished);
     Text text;
     text.setFont(font);
-    text.setString(to_string(flagsRemaining));
     text.setFillColor(Color::Red);
+    text.setString(to_string(flagsRemaining));
+    window.draw(text);
+    text.setPosition(Vector2f(0, 50));
+    text.setString(to_string(int(winTime)));
     window.draw(text);
 }

@@ -23,6 +23,8 @@ class Manager {
         BoardDrawer drawer;
         Vector2f boardPos;
         Font font;
+        Clock clock;
+        long double winTime;
 };
 
 #endif
