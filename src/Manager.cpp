@@ -21,7 +21,8 @@ Manager::Manager(Vector2u windowSize)
 
 }
 
-void Manager::update(RenderWindow& window) {
+void Manager::update(RenderWindow& window, bool a) {
+    leftReleased = a;
     if(!finished)
         updateClicks(window);
     if(Keyboard::isKeyPressed(Keyboard::R)) { //Restart if r is pressed
@@ -44,7 +45,7 @@ void Manager::updateClicks(RenderWindow& window) {
     mpb /= 64;
     if(mpb.x >= 0 && mpb.y >= 0 && 
         mousePos.x >= 0 && mousePos.y >= 0 && mousePos.x < window.getSize().x && mousePos.y < window.getSize().y) {
-        if(Mouse::isButtonPressed(Mouse::Left) && (board.generatedmap[mpb.x][mpb.y].second & MINEAND) == 0) {
+        if(leftReleased && (board.generatedmap[mpb.x][mpb.y].second & MINEAND) == 0) {
             if(firstClick) {
                 board.regenerate_map(Vector2u(8, 8), 10, mpb);
                 firstClick = false;

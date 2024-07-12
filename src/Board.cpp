@@ -29,7 +29,7 @@ int Board::updateAt(Vector2i pos) {
     // Check if pos is valid
     if((pos.x < 0 || pos.y < 0) || (pos.x >= size.x || pos.y >= size.y)) return -1;
     pbi tile = generatedmap[pos.x][pos.y];
-    if(tile.second & FLAG_AND == 0) return -1;
+    if((tile.second & FLAG_AND) != 0) return -1;
     if(tile.first == true) return 0;
     generatedmap[pos.x][pos.y].first = true;
     if(tile.second == 9) return 1;

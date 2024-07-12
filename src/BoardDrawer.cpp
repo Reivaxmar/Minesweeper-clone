@@ -60,7 +60,10 @@ void BoardDrawer::drawFinished(Vector2f pos, pbi info) {
             else
                 getTexMines(0); // Draw unpressed
         } else {
-            getTexMines(2); // Draw flag
+            if((adjMines & (FLAG_AND-1)) == 9)
+                getTexMines(2); // Draw flag
+            else
+                getTexMines(7); // Draw bad flag
         }
     }
 }

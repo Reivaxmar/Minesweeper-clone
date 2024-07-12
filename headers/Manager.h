@@ -10,7 +10,7 @@ const int mapMines = 10;
 class Manager {
     public:
         Manager(Vector2u windowSize);
-        void update(RenderWindow& window);
+        void update(RenderWindow& window, bool a);
         void draw(RenderWindow& window);
     private:
         int flagsRemaining;
@@ -25,6 +25,7 @@ class Manager {
         Font font;
         Clock clock;
         long double winTime;
+        bool leftReleased;
 };
 
 #endif

@@ -11,15 +11,16 @@ int main()
 
     while (window.isOpen())
     {
-        for (auto event = Event{}; window.pollEvent(event);)
-        {
-            if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
-            {
+        bool a = false;
+        for (auto event = Event{}; window.pollEvent(event);) {
+            if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape)) {
                 window.close();
+            } else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Button::Left) {
+                a = true;
             }
         }
 
-        manager.update(window);
+        manager.update(window, a);
         window.clear();
         manager.draw(window);
         window.display();
