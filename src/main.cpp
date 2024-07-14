@@ -5,7 +5,8 @@ using namespace sf;
 
 int main()
 {
-    RenderWindow window(VideoMode(512, 712), "CMake SFML Project");
+    RenderWindow window(VideoMode(512, 712), "CMake SFML Project", Style::Titlebar | Style::Close);
+    window.setPosition(Vector2i(704, 160));
     window.setFramerateLimit(144);
     Manager manager(window.getSize());
 

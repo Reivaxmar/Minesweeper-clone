@@ -10,7 +10,6 @@ using namespace sf;
 
 class BoardDrawer {
     private:
-        const int TILE_SIZE = 16 * 4;
         void getTexMineNum(int n);
         void getTexMines(int n);
         void getTexFace(int n);
@@ -20,6 +19,7 @@ class BoardDrawer {
         void drawNotFinished(Vector2f pos, pbi info);
         void drawFinished(Vector2f pos, pbi info);
     public:
+        const int TILE_SIZE = 16 * 4;
         void DrawBoard(RenderWindow& window, Board& board, Vector2f pos, bool finished);
         BoardDrawer();
 };

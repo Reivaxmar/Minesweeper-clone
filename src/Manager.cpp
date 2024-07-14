@@ -43,8 +43,11 @@ void Manager::updateClicks(RenderWindow& window) {
     Vector2i mpb = Vector2i(mousePos.x - boardPos.x, mousePos.y - boardPos.y);
     // Prints the tile the mouse is hovering
     mpb /= 64;
+    // if(Keyboard::isKeyPressed(Keyboard::D)) {cout << "mbp: " << mpb.x <<  ", " << mpb.y << endl << "mousePos: " << mousePos.x <<  ", " << mousePos.y << endl << boardPos.x + board.getSize().x << endl << ; }
     if(mpb.x >= 0 && mpb.y >= 0 && 
-        mousePos.x >= 0 && mousePos.y >= 0 && mousePos.x < window.getSize().x && mousePos.y < window.getSize().y) {
+        mousePos.x >= boardPos.x && mousePos.y >= boardPos.y &&
+        mousePos.x < boardPos.x + board.getSize().x * drawer.TILE_SIZE &&
+        mousePos.y < boardPos.y + board.getSize().y * drawer.TILE_SIZE) {
         if(leftReleased && (board.generatedmap[mpb.x][mpb.y].second & MINEAND) == 0) {
             if(firstClick) {
                 board.regenerate_map(Vector2u(8, 8), 10, mpb);
