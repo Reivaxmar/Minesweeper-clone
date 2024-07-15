@@ -17,7 +17,6 @@ class Board {
     private:
         Vector2u size;
         int nmines;
-        vector<Vector2u> minepos;
 
         random_device dev;
         mt19937 rng;

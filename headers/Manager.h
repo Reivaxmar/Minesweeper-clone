@@ -25,7 +25,7 @@ class Manager {
         Font font;
         Clock clock;
         long double winTime;
-        bool leftReleased;
+        bool leftPressed;
 };
 
 #endif

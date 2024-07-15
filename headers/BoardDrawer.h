@@ -6,8 +6,6 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-#define MINEAND (unsigned int)32
-
 class BoardDrawer {
     private:
         void getTexMineNum(int n);
